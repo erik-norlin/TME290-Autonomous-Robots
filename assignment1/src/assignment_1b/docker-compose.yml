@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  groundspeed-0:
+    image: registry.git.chalmers.se/norliner/opendlv-logic-norliner:1.3
+    network_mode: "host"
+    command: "/usr/bin/groundspeed"
+
+  groundspeed-1:
+    image: registry.git.chalmers.se/norliner/opendlv-logic-norliner:1.3
+    network_mode: "host"
+    command: "/usr/bin/groundspeed"

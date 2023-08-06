@@ -1,0 +1,35 @@
+image: docker
+
+variables:
+  DOCKER_TLS_CERTDIR: ""
+  PLATFORMS: "linux/amd64,linux/arm64,linux/arm/v7"
+
+services:
+  - name: docker:dind
+
+stages:
+  - build
+  - deploy
+
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
+build-amd64:
+  tags:
+    - docker-build
+  stage: build
+  script:
+    - docker build .
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+release:
+  tags:
+    - docker-build
+  stage: deploy
+  script:
+    - docker run --privileged --rm tonistiigi/binfmt --install all
+    - docker buildx create --name multiplatformbuilder --use
+    - docker buildx build --platform "$PLATFORMS" -t "$CI_REGISTRY_IMAGE":"$CI_COMMIT_TAG" --push .
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^[0-9.]+$/

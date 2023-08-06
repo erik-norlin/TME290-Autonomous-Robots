@@ -1,0 +1,50 @@
+/*
+ * Copyright (C) 2019 Ola Benderius
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+message tme290.grass.Control [id = 7744] {
+  uint8 command [id = 1];
+}
+
+message tme290.grass.Sensors [id = 7745] {
+  uint32 i [id = 1];
+  uint32 j [id = 2];
+  uint64 time [id = 3];
+  float grassTopLeft [id = 4];
+  float grassTopCentre [id = 5];
+  float grassTopRight [id = 6];
+  float grassLeft [id = 7];
+  float grassCentre [id = 8];
+  float grassRight [id = 9];
+  float grassBottomLeft [id = 10];
+  float grassBottomCentre [id = 11];
+  float grassBottomRight [id = 12];
+  float rain [id = 13];
+  float battery [id = 14];
+  float rainCloudDirX [id = 15];
+  float rainCloudDirY [id = 16];
+}
+
+message tme290.grass.Status [id = 7746] {
+  uint64 time [id = 1];
+  float grassMax [id = 2];
+  float grassMean [id = 3];
+}
+
+message tme290.grass.Restart [id = 7747] {
+  uint32 seed [id = 1];
+}

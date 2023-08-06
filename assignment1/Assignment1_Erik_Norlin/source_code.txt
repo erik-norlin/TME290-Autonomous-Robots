@@ -1,0 +1,2 @@
+Source code for 1b and 1c is the same and can be found here:
+https://git.chalmers.se/norliner/opendlv-logic-norliner

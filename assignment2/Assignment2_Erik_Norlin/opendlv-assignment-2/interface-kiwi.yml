@@ -1,0 +1,17 @@
+version: "3.6"
+
+services:
+    kiwi-view:
+        container_name: kiwi-view
+        image: chalmersrevere/opendlv-vehicle-view-multi:v0.0.60
+        restart: always
+        network_mode: "host"
+        volumes:
+        - ./simulation-map.txt:/opt/vehicle-view/simulation-map.txt
+        - /home/pi/recordings:/opt/vehicle-view/recordings
+        - /var/run/docker.sock:/var/run/docker.sock
+        - ./opendlv-standard-message-set-v0.9.10.odvd:/opt/vehicle-view/opendlv-standard-message-set-v0.9.9.odvd
+        environment:
+        - OD4SESSION_CID=111
+        - OPENDLV_VEHICLE_VIEW_PLATFORM=Kiwi
+        - OPENDLV_VEHICLE_VIEW_ENABLE_KIWI_SIMULATION=1

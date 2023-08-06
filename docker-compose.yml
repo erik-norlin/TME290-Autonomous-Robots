@@ -1,0 +1,14 @@
+version: '3'
+services:
+  opendlv-desktop:
+    image: registry.opendlv.org/community/opendlv-desktop:14.1
+    privileged: true
+    ports:
+      - 5901:5901
+      - 5901:5901/udp
+      - 6080:6080
+    volumes:
+      - /run/user/1000/pulse/native:/run/user/1000/pulse/native
+      - ./opendlv-desktop-data:/home/opendlv/data
+    environment:
+      - PASSWORD=Secret5810

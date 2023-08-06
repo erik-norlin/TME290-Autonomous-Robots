@@ -1,0 +1,45 @@
+version: '2'
+
+services:
+    virtual-space:
+        image: registry.opendlv.org/community/opendlv-virtual-space:1.0
+        network_mode: "host"
+        command: "/usr/bin/opendlv-virtual-space --cid=111 --freq=45 --frame-id=0 --x=0.0 --yaw=0.2 --timemod=1.0"
+
+    virtual-motor-kiwi:
+        image: registry.opendlv.org/community/opendlv-virtual-motor-kiwi:1.0
+        network_mode: "host"
+        command: "/usr/bin/opendlv-virtual-motor-kiwi --cid=111 --freq=45 --frame-id=0 --timemod=1.0"
+
+    virtual-rangefinder-ultrasonic-front:
+        image: registry.opendlv.org/community/opendlv-virtual-rangefinder-ultrasonic-srf08:1.0
+        network_mode: "host"
+        volumes:
+          - ./simulation-map.txt:/opt/simulation-map.txt
+        command: "/usr/bin/opendlv-virtual-rangefinder-ultrasonic-srf08 --map-file=/opt/simulation-map.txt --x=0.2 --y=0.0 --yaw=0.0 --cid=111 --freq=10 --frame-id=0 --id=0"
+    
+    virtual-rangefinder-ultrasonic-rear:
+        image: registry.opendlv.org/community/opendlv-virtual-rangefinder-ultrasonic-srf08:1.0
+        network_mode: "host"
+        volumes:
+          - ./simulation-map.txt:/opt/simulation-map.txt
+        command: "/usr/bin/opendlv-virtual-rangefinder-ultrasonic-srf08 --map-file=/opt/simulation-map.txt --x=-0.2 --y=0.0 --yaw=3.14 --cid=111 --freq=10 --frame-id=0 --id=1"
+    
+    virtual-adc-bbblue-left:
+        image: registry.opendlv.org/community/opendlv-virtual-adc-bbblue:1.0
+        network_mode: "host"
+        volumes:
+          - ./simulation-map.txt:/opt/simulation-map.txt
+        command: "/usr/bin/opendlv-virtual-adc-bbblue --map-file=/opt/simulation-map.txt --x=0.0 --y=0.1 --yaw=1.57 --cid=111 --freq=10 --frame-id=0 --id=2"
+    
+    virtual-adc-bbblue-right:
+        image: registry.opendlv.org/community/opendlv-virtual-adc-bbblue:1.0
+        network_mode: "host"
+        volumes:
+          - ./simulation-map.txt:/opt/simulation-map.txt
+        command: "/usr/bin/opendlv-virtual-adc-bbblue --map-file=/opt/simulation-map.txt --x=0.0 --y=-0.1 --yaw=-1.57 --cid=111 --freq=10 --frame-id=0 --id=3"
+    
+    logic-test-kiwi:
+        image: registry.opendlv.org/community/opendlv-logic-test-kiwi-c:1.0
+        network_mode: "host"
+        command: "/usr/bin/opendlv-logic-test-kiwi --cid=111 --freq=50"
